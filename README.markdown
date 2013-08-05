@@ -48,9 +48,9 @@ When creating the migration with `rake granted:create_migration`,
 this gem will add a migration to your rails app that creates a
 `grants` table when you run it.
 
-This is a polymorphic model sitting between a `grantee` and a
-`subject`. It has only one attribute, and that is the `right` that
-it gives the grantee to do with the subject.
+This is a polymorphic model sitting between a `grantee` (e.g. `User`
+and a `subject` (e.g. `Document`). It has only one attribute, and that
+is the `right` that it gives the grantee to do with the subject.
 
 ### What does this code do?
 
