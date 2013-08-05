@@ -1,5 +1,5 @@
-Quickstart:
-===========
+Quickstart
+==========
 
 Install with bundler:
 
@@ -73,8 +73,7 @@ It's really just a short way of writing this:
 
 ```ruby
 class Document < ActiveRecord::Base
-  has_many :grants, as: :subject, class_name: 'Granted::Grant',
-dependent: :destroy
+  has_many :grants, as: :subject, class_name: 'Granted::Grant', dependent: :destroy
    has_many :write_users, source: :grantee, source_type: 'User', through: :grants, conditions: {'grants.right' => :write}
    has_many :read_users, source: :grantee, source_type: 'User', through: :grants, conditions: {'grants.right' => :read}
    has_many :all_users, source: :grantee, source_type: 'User', through: :grants, uniq: true
