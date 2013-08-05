@@ -1,4 +1,15 @@
+Install with bundler:
+
+    gem 'granted'
+
+Add to Rakefile:
+
+    require 'granted/tasks'
+
+And then:
+
 ```ruby
+
   # Let's grant a user access to a document
   user.grant(:read).on(document)
 

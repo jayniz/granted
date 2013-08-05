@@ -1,2 +1,4 @@
-class Grant < ActiveRecord::Base
+module Granted
+  class Grant < ActiveRecord::Base
+  end
 end
