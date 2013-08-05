@@ -32,12 +32,7 @@ user.all_documents.count
 class Document
   include Granted::ForGranted
 
-  # The following command will add `grant` and `revoke` methods
-  # to `User` and `Document` so you can change permissions.
-  # 
-  # It also adds `User#readable_documents` and 
-  # `Document#read_users` as `has_many` so you can do your 
-  # thing
+  # Creates associations and grant/revoke methods
   grantable :read, :write, :destroy, to: User
 end
 ```
@@ -46,11 +41,10 @@ end
 
 When creating the migration with `rake granted:create_migration`,
 this gem will add a migration to your rails app that creates a
-`grants` table when you run it.
-
-This is a polymorphic model sitting between a `grantee` (e.g. `User`
-and a `subject` (e.g. `Document`). It has only one attribute, and that
-is the `right` that it gives the grantee to do with the subject.
+`grants` table when you run it. This is a polymorphic model sitting
+between a `grantee` (e.g. `User` and a `subject` (e.g. `Document`).
+It has only one attribute, and that is the `right` that it gives the
+grantee to do with the subject.
 
 ### What does this code do?
 
