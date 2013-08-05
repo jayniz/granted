@@ -5,6 +5,20 @@ module Granted
     included do
     end
 
+    def grant(right)
+      Granted::Granter.new
+                      .grant
+                      .right(right)
+                      .on(self)
+    end
+
+    def revoke(right)
+      Granted::Granter.new
+                      .revoke
+                      .right(right)
+                      .on(self)
+    end
+
     module ClassMethods
       def grantable(*rights, grantees)
         [rights].flatten.each do |right|
@@ -26,6 +40,7 @@ module Granted
         rel_name = "#{right}able_#{name_sym}".to_sym
         grantee.has_many :grants, as: :grantee, class_name: 'Granted::Grant'
         grantee.has_many rel_name, source: :subject, source_type: name, class_name: name, through: :grants
+        grantee.send :include, Granted::Grantee
       end
 
       def setup_self(right, grantee)

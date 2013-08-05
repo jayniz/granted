@@ -26,6 +26,6 @@ And then:
   class Document
     include Granted::ForGranted
 
-    grant :read, :write, :destroy, to: User
+    grantable :read, :write, :destroy, to: User
   end
 ```

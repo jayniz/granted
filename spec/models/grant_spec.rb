@@ -1,24 +1,27 @@
 require 'spec_helper.rb'
 
 describe Granted::Grant do
-  let(:alfred){     User.create name: 'Alfred'                          }
-  let(:grienhild){  User.create name: 'Grienhild'                       }
-  let(:alfreds){    Document.create name: 'Alfreds', content: 'Secret' }
-  let(:grienhilds){ Document.create name: 'Alfreds', content: 'Secret' }
-  let(:shared){     Document.create name: 'Alfreds', content: 'Secret' }
+  before(:all) do
+    @alfred     = User.create name: 'Alfred'
+    @grienhild  = User.create name: 'Grienhild'
+    @alfreds    = Document.create name: 'Alfreds', content: 'Secret'
 
-  it "makes Alfred owner of his first document" do
-    expect{
-      Granted::Grant.create! grantee: alfred, subject: alfreds, right: :write
-    }.to change(Granted::Grant, :count).by(1)
+    Granted::Grant.create! grantee: @alfred, subject: @alfreds, right: :write
   end
 
   it "lists Alfred's document as one of his writeable documents" do
-    debugger
-    alfred.writeable_documents.count.should == 1
+    @alfred.writeable_documents.count.should == 1
   end
 
-  xit "lets Alfred grant read to Grienhild" do
+  it "grant read access on Alfred's document to Grienhild" do
+    expect{
+      @grienhild.grant(:read).on(@alfreds)
+    }.to change(@grienhild.readable_documents, :count).from(0).to(1)
+  end
 
+  it "revoke write access on Alfred's document from Alfred" do
+    expect{
+      @alfred.revoke(:write).on(@alfreds)
+    }.to change(@alfred.writeable_documents, :count).from(1).to(0)
   end
 end
