@@ -9,7 +9,7 @@ class CreateGrantedTable < ActiveRecord::Migration
       t.string  :grantee_type
       t.integer :subject_id
       t.string  :subject_type
-      t.string  :type
+      t.string  :right
 
       t.timestamps
     end

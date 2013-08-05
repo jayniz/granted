@@ -24,6 +24,8 @@ And then:
 
   # Define the things we took for granted (scuse me) above
   class Document
-    for_granted :read, :write, :destroy
+    include Granted::ForGranted
+
+    grant :read, :write, :destroy, to: User
   end
 ```
