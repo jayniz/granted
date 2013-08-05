@@ -1,5 +1,4 @@
-Quickstart
-==========
+# Quickstart
 
 Install with bundler:
 
@@ -43,11 +42,7 @@ class Document
 end
 ```
 
-How does it work
-=================
-
-Relations
----------
+## How does it work
 
 When creating the migration with `rake granted:create_migration`,
 this gem will add a migration to your rails app that creates a
@@ -57,7 +52,7 @@ This is a polymorphic model sitting between a `grantee` and a
 `subject`. It has only one attribute, and that is the `right` that
 it gives the grantee to do with the subject.
 
-The following code:
+### What does this code do?
 
 ```ruby
 class Document < ActiveRecord::Base
@@ -67,9 +62,7 @@ class Document < ActiveRecord::Base
 end
 ```
 
-creates the appropriate `has_many` relations to both `User` and
-`Document`, so that they can be connected with a `Grant` instance.
-It's really just a short way of writing this:
+### It does that
 
 ```ruby
 class Document < ActiveRecord::Base
@@ -87,8 +80,11 @@ class User < ActiveRecord::Base
 end
 ```
 
-Granting/revoking rights
-------------------------
+It creates the appropriate `has_many` relations to both `User` and
+`Document`, so that they can be connected with a `Grant` instance.
+
+
+## Granting/revoking rights
 
 
 
