@@ -14,7 +14,7 @@ And then:
   user.grant(:read).on(document)
 
   # Let's revoke a user's write access to a document
-  user.revoke(:grant).on(document)
+  user.revoke(:grant).from(document)
 
   # Let's count all documents a user has read access to
   user.readable_documents.count
@@ -26,6 +26,12 @@ And then:
   class Document
     include Granted::ForGranted
 
+    # The following command will add `grant` and `revoke` methods
+    # to `User` and `Document` so you can change permissions.
+    # 
+    # It also adds `User#readable_documents` and 
+    # `Document#read_users` as `has_many` so you can do your 
+    # thing
     grantable :read, :write, :destroy, to: User
   end
 ```
