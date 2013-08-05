@@ -108,11 +108,21 @@ You can grant/revoke access rights using Users or Documents as a starting
 point, it's all the same:
 
 ```ruby
+# Both ways to grant are identical
 my_user.grant(:read).on(my_document) 
 my_document.grant(:read).to(my_user)
   
-my_user.revoke(:read).from(my_document)
+# Both ways to revoke are identical
+my_user.revoke(:read).on(my_document)
 my_document.revoke(:read).from(my_user)
+
+# Clever: even weird grammatic yields identic results
+my_user.on(my_document).revoke(:read)
+my_document.revoke(:read).from(:my_user)
+
+# This is what the grant/revoke methods do:
+Granted::Granter.new.grant(:read).on(my_document).to(my_user)
+Granted::Granter.new.revoke(:read).on(my_document).from(my_user)
 ```
 
 ## Interedasting things
