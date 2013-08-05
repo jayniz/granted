@@ -101,7 +101,10 @@ class Document < ActiveRecord::Base
 end
 ```
 
-It does not only create the associations 
+It does not only create the associations, it also creates the `grant`
+and `revoke` methods on `User` and `Document`. They return a convenient
+little object ([Grant::Granter](lib/granted/granter.rb), if you're curious).
+
 
 
 
