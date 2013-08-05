@@ -27,3 +27,5 @@ Jeweler::Tasks.new do |gem|
 end
 Jeweler::RubygemsDotOrgTasks.new
 
+$LOAD_PATH.unshift File.expand_path(File.join(File.dirname(__FILE__), 'lib'))
+Dir.glob('lib/granted/**/*.rake').each { |r| import r }

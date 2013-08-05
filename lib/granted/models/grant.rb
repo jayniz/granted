@@ -1,3 +1,2 @@
-class Grant < ActiveRecord::Model
-
+class Grant < ActiveRecord::Base
 end
