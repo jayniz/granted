@@ -13,5 +13,7 @@ class CreateGrants < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :grants, [:grantee_id, :grantee_type, :subject_id, :subject_type, :right], unique: true, name: :grants_uniqueness
   end
 end

@@ -5,6 +5,8 @@ module Granted
 
     attr_accessible :grantee, :subject, :right
 
+    validates_uniqueness_of :right, scope: [:grantee_id, :grantee_type, :subject_id, :subject_type]
+
     def self.grantee(grantee)
       where(grantee_id: grantee.id, grantee_type: grantee.class.name)
     end

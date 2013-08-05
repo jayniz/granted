@@ -14,6 +14,14 @@ describe Granted::Grant do
       @alfred.writeable_documents.count.should == 1
     end
 
+    it "Alfred has no readable documents" do
+      @alfred.readable_documents.count.should == 0
+    end
+
+    it "Grienhild has no documents at all" do
+      @grienhild.all_documents.count.should == 0
+    end
+
     it "grant read access on Alfred's document to Grienhild" do
       expect{
         @grienhild.grant(:read).on(@alfreds)
@@ -24,6 +32,12 @@ describe Granted::Grant do
       expect{
         @alfred.revoke(:write).on(@alfreds)
       }.to change(@alfred.writeable_documents, :count).from(1).to(0)
+    end
+
+    it "returns Alfred only once even though he has multiple rights" do
+      Grant.create(subject: @alfreds, grantee: @alfred, right: :destroy)
+      @alfred.grants.count.should == 2
+      @alfred.all_documents.count.should == 1
     end
   end
 
@@ -43,6 +57,12 @@ describe Granted::Grant do
       expect{
         @alfreds.revoke(:write).from(@alfred)
       }.to change(@alfreds.write_users, :count).from(1).to(0)
+    end
+
+    it "returns Alfreds only once even though he has multiple rights" do
+      Grant.create(subject: @alfreds, grantee: @alfred, right: :destroy)
+      @alfreds.grants.count.should == 2
+      @alfreds.all_users.count.should == 1
     end
   end
 
