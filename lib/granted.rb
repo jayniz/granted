@@ -4,3 +4,5 @@ require 'granted/modules/for_granted.rb'
 
 module Granted
 end
+
+Grant = Granted::Grant

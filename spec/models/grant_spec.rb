@@ -8,14 +8,17 @@ describe Granted::Grant do
   let(:shared){     Document.create name: 'Alfreds', content: 'Secret' }
 
   it "makes Alfred owner of his first document" do
-    Granted::Grant.create grantee: alfred, subject: alfreds, right: :write
+    expect{
+      Granted::Grant.create! grantee: alfred, subject: alfreds, right: :write
+    }.to change(Granted::Grant, :count).by(1)
   end
 
   it "lists Alfred's document as one of his writeable documents" do
+    debugger
     alfred.writeable_documents.count.should == 1
   end
 
-  it "lets Alfred grant read to Grienhild" do
+  xit "lets Alfred grant read to Grienhild" do
 
   end
 end
