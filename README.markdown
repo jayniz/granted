@@ -104,7 +104,29 @@ end
 It does not only create the associations, it also creates the `grant`
 and `revoke` methods on `User` and `Document`. They return a convenient
 little object ([Grant::Granter](lib/granted/granter.rb), if you're curious).
+You can grant/revoke access rights using Users or Documents as a starting
+point, it's all the same:
 
+```ruby
+my_user.grant(:read).on(my_document) 
+my_document.grant(:read).to(my_user)
+  
+my_user.revoke(:read).from(my_document)
+my_document.revoke(:read).from(my_user)
+```
 
+## Interedasting things
 
+You can use arrays or single objects in `grantable` both as access rights
+and grantees:
+
+```ruby
+class Document < ActiveRecord::Base
+  include Granted::ForGranted
+  
+  grantable :read, to: [User, Editor]
+  
+  grantable :update, :destroy, to: [Editor]
+end
+```
 
