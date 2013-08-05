@@ -6,6 +6,10 @@ module Granted
     def to(grantee)
       accept(grantee: grantee)
     end
+    
+    def from(grantee)
+      accept(grantee: grantee)
+    end
 
     def on(subject)
       accept(subject: subject)

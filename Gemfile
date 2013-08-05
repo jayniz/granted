@@ -12,4 +12,6 @@ group :development, :test do
   gem 'guard-bundler'
   gem 'simplecov'
   gem 'debugger'
+  gem 'database_cleaner'
+  gem 'mysql2'
 end

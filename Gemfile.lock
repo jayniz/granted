@@ -33,6 +33,7 @@ GEM
     builder (3.0.4)
     coderay (1.0.9)
     columnize (0.3.6)
+    database_cleaner (1.1.1)
     debugger (1.6.1)
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.2.0)
@@ -96,6 +97,7 @@ GEM
     multi_json (1.7.8)
     multi_xml (0.5.4)
     multipart-post (1.2.0)
+    mysql2 (0.3.13)
     nokogiri (1.5.10)
     oauth2 (0.9.2)
       faraday (~> 0.8)
@@ -177,10 +179,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  database_cleaner
   debugger
   guard-bundler
   guard-rspec
   jeweler
+  mysql2
   rails (~> 3.2.14)
   rspec
   rspec-rails
