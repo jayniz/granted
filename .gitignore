@@ -48,3 +48,4 @@ pkg
 # For rubinius:
 #*.rbc
 spec/dummy/db/test.sqlite3
+tmp
