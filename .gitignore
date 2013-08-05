@@ -49,3 +49,4 @@ pkg
 #*.rbc
 spec/dummy/db/test.sqlite3
 tmp
+dummy/db/development.sqlite3

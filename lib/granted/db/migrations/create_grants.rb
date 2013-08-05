@@ -1,4 +1,4 @@
-class CreateGrantedTable < ActiveRecord::Migration
+class CreateGrants < ActiveRecord::Migration
   def self.filename
     __FILE__
   end

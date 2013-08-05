@@ -1,3 +1,3 @@
 module Granted
-  VERSION = "0.1.0"
+  VERSION = File.read(File.join(File.dirname(__FILE__), "..", "..", "VERSION")).to_s
 end

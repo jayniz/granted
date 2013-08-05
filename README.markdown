@@ -6,6 +6,11 @@ Add to Rakefile:
 
     require 'granted/tasks'
 
+Create the migration for the grants table:
+
+    rake granted:create_migration
+    rake db:migrate
+
 And then:
 
 ```ruby
