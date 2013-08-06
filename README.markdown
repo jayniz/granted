@@ -95,8 +95,9 @@ class User < ActiveRecord::Base
   has_many :readable_documents,  source: :subject, source_type: 'Document', through: :read_grants
   has_many :all_documents,       source: :subject, source_type: 'Document', through: :grants, uniq: true
 
-  attr_accessible :writeable_documents_attributes, :readable_documents_attributes
-  accepts_nested_attributes_for :writeable_documents, :readable_documents
+  # It does not do this yet, but hopefully soon :)
+  # attr_accessible :writeable_documents_attributes, :readable_documents_attributes
+  # accepts_nested_attributes_for :writeable_documents, :readable_documents
 end
 ```
 
