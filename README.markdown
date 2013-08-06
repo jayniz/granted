@@ -4,7 +4,7 @@ Check out this readme on how to grant read/write permissions on individual docum
 individual users. This is a [moviepilot.com](http://moviepilot.com) project licensed
 [MIT](LICENSE.txt).
 
-[![Build Status](https://travis-ci.org/jayniz/granted.png?branch=master)](https://travis-ci.org/jayniz/granted)
+[![Gem Version](https://badge.fury.io/rb/granted.png)](http://badge.fury.io/rb/granted) [![Build Status](https://travis-ci.org/jayniz/granted.png?branch=master)](https://travis-ci.org/jayniz/granted)
 
 # Quickstart
 
