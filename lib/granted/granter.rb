@@ -15,8 +15,12 @@ module Granted
       accept(subject: subject)
     end
 
+    def rights(*rights)
+      accept(rights: [rights].flatten)
+    end
+
     def right(right)
-      accept(right: right)
+      rights(right)
     end
 
     def grant
@@ -33,28 +37,30 @@ module Granted
       @action  ||= options[:action]
       @grantee ||= options[:grantee]
       @subject ||= options[:subject]
-      @right   ||= options[:right]
+      @rights  ||= options[:rights]
       finalize
     end
 
     def finalize
-      return self unless @grantee and @subject and @right and @action
-      clazz = GrantClassFactory.get(@right)
-      @selector = clazz.grantee(@grantee).subject(@subject)
-      case @action.to_sym
-      when :grant  then give_grant
-      when :revoke then revoke_grant
-      else raise "Invalid action @action"
+      return self unless @grantee and @subject and @rights and @action
+      @rights.map do |right|
+        clazz = GrantClassFactory.get(right)
+        selector = clazz.grantee(@grantee).subject(@subject)
+        case @action.to_sym
+        when :grant  then give_grant(selector)
+        when :revoke then revoke_grant(selector)
+        else raise "Invalid action @action"
+        end
       end
     end
 
-    def revoke_grant
-      return true unless g = @selector.first
+    def revoke_grant(selector)
+      return true unless g = selector.first
       g.destroy
     end
 
-    def give_grant
-      @selector.first_or_create
+    def give_grant(selector)
+      selector.first_or_create
     end
 
   end

@@ -1,17 +1,17 @@
 module Granted
   module Grantee
     extend ActiveSupport::Concern
-      def grant(right)
+      def grant(*rights)
         Granted::Granter.new
                         .grant
-                        .right(right)
+                        .rights(rights)
                         .to(self)
       end
 
-      def revoke(right)
+      def revoke(*rights)
         Granted::Granter.new
                         .revoke
-                        .right(right)
+                        .rights(rights)
                         .to(self)
       end
   end

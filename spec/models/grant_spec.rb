@@ -24,9 +24,17 @@ describe Granted::Grant do
     end
 
     it "grant read access on Alfred's document to Bruce" do
+      Granted::Grant.destroy_all
       expect{
         @bruce.grant(:read).on(@alfreds)
       }.to change(@bruce.readable_documents, :count).from(0).to(1)
+    end
+
+    it "grant all access on Alfred's document to Bruce" do
+      Granted::Grant.destroy_all
+      expect{
+        @bruce.grant(:read, :write, :destroy).on(@alfreds)
+      }.to change(Grant, :count).from(0).to(3)
     end
 
     it "revoke write access on Alfred's document from Alfred" do
@@ -52,6 +60,13 @@ describe Granted::Grant do
       expect{
         @alfreds.grant(:read).to(@bruce)
       }.to change(@alfreds.read_users, :count).from(0).to(1)
+    end
+
+    it "grant all access on Alfred's document to Bruce" do
+      Granted::Grant.destroy_all
+      expect{
+        @alfreds.grant(:read, :write, :destroy).to(@bruce)
+      }.to change(Grant, :count).from(0).to(3)
     end
 
     it "revoke write access on Alfred's document from Alfred" do

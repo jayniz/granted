@@ -107,6 +107,14 @@ It then creates the appropriate `has_many` relations to both `User` and
 So you have all the access control available via normal active record
 associations (reading and writing).
 
+PSA: You can only grant/revoke rights via the grantee side at the
+moment, the other direction is not yet implemented:
+
+```ruby
+document.read_users << my_user         # Works
+my_user.readable_documents << document # Doesn't work yet
+```
+
 ## Granting/revoking rights
 
 So now that you know how querying grants/rights work, you might wonder
@@ -158,5 +166,7 @@ class Document < ActiveRecord::Base
   
   grantable :update, :destroy, to: [Editor]
 end
+
+my_document.grant(:read, :write).to(my_user)
 ```
 

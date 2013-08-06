@@ -5,17 +5,17 @@ module Granted
     included do
     end
 
-    def grant(right)
+    def grant(*rights)
       Granted::Granter.new
                       .grant
-                      .right(right)
+                      .rights(rights)
                       .on(self)
     end
 
-    def revoke(right)
+    def revoke(*rights)
       Granted::Granter.new
                       .revoke
-                      .right(right)
+                      .rights(rights)
                       .on(self)
     end
 
@@ -46,8 +46,8 @@ module Granted
         # e.g. User#readable_documents
         rel_name = "#{right}able_#{name_sym}".to_sym
         grantee.has_many rel_name, source: :subject, source_type: name, through: grants_relation
-        attr_accessible "#{rel_name}_attributes".to_sym
-        grantee.accepts_nested_attributes_for rel_name
+        # grantee.attr_accessible "#{rel_name}_attributes".to_sym
+        # grantee.accepts_nested_attributes_for rel_name
 
         # e.g. User#all_documents
         rel_name = "all_#{name_sym}".to_sym
@@ -66,13 +66,13 @@ module Granted
         has_many grants_relation, as: :subject, class_name: "Granted::#{right.to_s.camelize}Grant", dependent: :destroy
 
         # e.g. Document#read_users
-        rel_name = "#{right}_#{name_sym}"
+        rel_name = "#{right}_#{name_sym}".to_sym
         has_many rel_name, source: :grantee, source_type: grantee.name, through: grants_relation
         attr_accessible "#{rel_name}_attributes".to_sym
         accepts_nested_attributes_for rel_name
 
         # e.g. Document#all_users
-        rel_name = "all_#{name_sym}"
+        rel_name = "all_#{name_sym}".to_sym
         has_many :grants, as: :subject, class_name: "Granted::Grant", dependent: :destroy
         has_many rel_name, source: :grantee, source_type: grantee.name, through: :grants, uniq: true
       end
