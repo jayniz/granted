@@ -14,4 +14,5 @@ group :development, :test do
   gem 'debugger'
   gem 'database_cleaner'
   gem 'mysql2'
+  gem 'activerecord-postgresql-adapter'
 end

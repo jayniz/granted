@@ -11,6 +11,8 @@ before_script:
   - mysql -u travis -e 'create database granted_test;'
   - psql -c 'create database granted_test' -U postgres
 script:
-  - cd spec/dummy && RAILS_ENV=test bundle exec rake db:migrate --trace
-  - cd spec/dummy && bundle exec rake db:test:prepare
+  - cd spec/dummy
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - cd ../..
   - bundle exec rspec spec
