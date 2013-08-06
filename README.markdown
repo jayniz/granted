@@ -1,27 +1,23 @@
+# Dead easy rails permissions [![Gem Version](https://badge.fury.io/rb/granted.png)](http://badge.fury.io/rb/granted) [![Build Status](https://travis-ci.org/jayniz/granted.png?branch=master)](https://travis-ci.org/jayniz/granted)
+
+Installation is as easy as 1,2,3:
+<table>
+  <tr>
+    <td align="center"><h1>1.</h1>Add to Gemfile:<pre>gem 'granted'
+    </pre></td>
+    <td align="center"><h1>2.</h1>Add to Rakefile: <pre>require 'granted/tasks'
+    </pre></td>
+    <td align="center"><h1>3.</h1>Create grants migration: <pre align="left">rake granted:create_migration
+rake db:migrate</pre></td>
+  </tr>
+</table>
+
 This gem lets you define arbitrary permissions on a per object level (as opposed to roles).
 They are implemented purely as active record associations and hence easy to understand.
 Check out this readme on how to grant read/write permissions on individual documents to
 individual users. This is a [moviepilot.com](http://moviepilot.com) project licensed
-[MIT](LICENSE.txt).
+[MIT](LICENSE.txt). And now, code:
 
-[![Gem Version](https://badge.fury.io/rb/granted.png)](http://badge.fury.io/rb/granted) [![Build Status](https://travis-ci.org/jayniz/granted.png?branch=master)](https://travis-ci.org/jayniz/granted)
-
-# Quickstart
-
-Install with bundler:
-
-    gem 'granted'
-
-Add to Rakefile:
-
-    require 'granted/tasks'
-
-Create the migration for the grants table:
-
-    rake granted:create_migration
-    rake db:migrate
-
-And then:
 
 ```ruby
 # Let's grant a user access to a document
