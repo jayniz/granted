@@ -22,6 +22,9 @@ user.grant(:read).on(document)
 # Let's revoke a user's write access to a document
 user.revoke(:grant).from(document)
 
+# We can also do it rails association style
+document.read_users << user
+
 # Let's count all documents a user has read access to
 user.readable_documents.count
 
