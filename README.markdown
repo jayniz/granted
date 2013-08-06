@@ -1,3 +1,10 @@
+This gem lets you define arbitrary permissions on a per object level (as opposed to roles).
+They are implemented purely as active record associations and hence easy to understand.
+Check out this readme on how to grant read/write permissions on individual documents to
+individual users.
+
+Licensed [MIT](LICENSE.txt), © 2013 [moviepilot.com](http://moviepilot.com)
+
 # Quickstart
 
 Install with bundler:
@@ -59,7 +66,7 @@ class Document < ActiveRecord::Base
 end
 ```
 
-### It does that
+### It does that:
 
 ```ruby
 class Granted::WriteGrant < Granted::Grant; end
@@ -86,7 +93,8 @@ class User < ActiveRecord::Base
 end
 ```
 
-First it creates STI classes that inherit from `Granted::Grant`.
+First it creates STI classes that inherit from `Granted::Grant`, one for
+each right you defined as grantable (e.g. ReadGrant, WriteGrant).
 It then creates the appropriate `has_many` relations to both `User` and
 `Document`, so that they can be connected with a `Grant` instance.
 So you have all the access control available via normal active record
