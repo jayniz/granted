@@ -59,7 +59,7 @@ class Document < ActiveRecord::Base
 end
 ```
 
-### It does that
+### It does that:
 
 ```ruby
 class Granted::WriteGrant < Granted::Grant; end
@@ -86,7 +86,8 @@ class User < ActiveRecord::Base
 end
 ```
 
-First it creates STI classes that inherit from `Granted::Grant`.
+First it creates STI classes that inherit from `Granted::Grant`, one for
+each right you defined as grantable (e.g. ReadGrant, WriteGrant).
 It then creates the appropriate `has_many` relations to both `User` and
 `Document`, so that they can be connected with a `Grant` instance.
 So you have all the access control available via normal active record
