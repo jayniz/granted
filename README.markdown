@@ -143,7 +143,7 @@ my_document.revoke(:read).from(my_user)
 
 # Clever: even weird grammatic yields identic results
 my_user.on(my_document).revoke(:read)
-my_document.revoke(:read).from(:my_user)
+my_document.from(:my_user).revoke(:read)
 
 # This is what the grant/revoke methods do:
 Granted::Granter.new.grant(:read).on(my_document).to(my_user)
