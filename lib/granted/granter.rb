@@ -39,7 +39,8 @@ module Granted
 
     def finalize
       return self unless @grantee and @subject and @right and @action
-      @selector = Grant.grantee(@grantee).subject(@subject).where(right: @right)
+      clazz = GrantClassFactory.get(@right)
+      @selector = clazz.grantee(@grantee).subject(@subject)
       case @action.to_sym
       when :grant  then give_grant
       when :revoke then revoke_grant

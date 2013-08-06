@@ -5,8 +5,9 @@ describe Granted::Grant do
     @alfred     = User.create name: 'Alfred'
     @grienhild  = User.create name: 'Grienhild'
     @alfreds    = Document.create name: 'Alfreds', content: 'Secret'
+    @grienhilds = Document.create name: 'Grienhilds', content: 'Secret'
 
-    Granted::Grant.create! grantee: @alfred, subject: @alfreds, right: :write
+    Granted::WriteGrant.create! grantee: @alfred, subject: @alfreds
   end
 
   context "using a grantee as the starting point" do
@@ -35,7 +36,7 @@ describe Granted::Grant do
     end
 
     it "returns Alfred only once even though he has multiple rights" do
-      Grant.create(subject: @alfreds, grantee: @alfred, right: :destroy)
+      Granted::DestroyGrant.create(subject: @alfreds, grantee: @alfred)
       @alfred.grants.count.should == 2
       @alfred.all_documents.count.should == 1
     end
@@ -47,7 +48,7 @@ describe Granted::Grant do
     end
 
     it "grant read access on Alfred's document to Grienhild" do
-      Grant.destroy_all
+      Granted::Grant.destroy_all
       expect{
         @alfreds.grant(:read).to(@grienhild)
       }.to change(@alfreds.read_users, :count).from(0).to(1)
@@ -60,9 +61,25 @@ describe Granted::Grant do
     end
 
     it "returns Alfreds only once even though he has multiple rights" do
-      Grant.create(subject: @alfreds, grantee: @alfred, right: :destroy)
+      Granted::DestroyGrant.create(subject: @alfreds, grantee: @alfred)
       @alfreds.grants.count.should == 2
       @alfreds.all_users.count.should == 1
+    end
+  end
+
+  context "granting/revoking rights: rails association style" do
+    it "adds a grant via subject's <<" do
+      expect{
+        @grienhilds.read_users << @alfred
+        @grienhilds.save!
+      }.to change(@alfred.readable_documents, :count).from(0).to(1)
+    end
+
+    it "adds a grant via grantee's <<" do
+      expect{
+        @alfred.readable_documents << @grienhilds
+        @alfred.save!
+      }.to change(@grienhilds.read_users, :count).by(1)
     end
   end
 

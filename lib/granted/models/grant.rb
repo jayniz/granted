@@ -3,9 +3,9 @@ module Granted
     belongs_to :grantee, polymorphic: true
     belongs_to :subject, polymorphic: true
 
-    attr_accessible :grantee, :subject, :right
+    attr_accessible :grantee, :subject, :type
 
-    validates_uniqueness_of :right, scope: [:grantee_id, :grantee_type, :subject_id, :subject_type]
+    validates_uniqueness_of :type, scope: [:grantee_id, :grantee_type, :subject_id, :subject_type]
 
     def self.grantee(grantee)
       where(grantee_id: grantee.id, grantee_type: grantee.class.name)

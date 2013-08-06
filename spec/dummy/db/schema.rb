@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130805113515) do
+ActiveRecord::Schema.define(:version => 20132406101010) do
 
   create_table "documents", :force => true do |t|
     t.string   "name"
@@ -25,10 +25,12 @@ ActiveRecord::Schema.define(:version => 20130805113515) do
     t.string   "grantee_type"
     t.integer  "subject_id"
     t.string   "subject_type"
-    t.string   "right"
+    t.string   "type"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
+
+  add_index "grants", ["grantee_id", "grantee_type", "subject_id", "subject_type", "type"], :name => "grants_uniqueness", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "name"
