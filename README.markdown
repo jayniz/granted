@@ -62,27 +62,35 @@ end
 ### It does that
 
 ```ruby
+class Granted::WriteGrant < Granted::Grant; end
+class Granted::ReadGrant < Granted::Grant; end
+
 class Document < ActiveRecord::Base
-  has_many :grants, as: :subject, class_name: 'Granted::Grant', dependent: :destroy
+  has_many :grants,       as: :subject, class_name: 'Granted::Grant', dependent: :destroy
+  has_many :write_grants, as: :subject, class_name: 'Granted::WriteGrant'
+  has_many :read_grants,  as: :subject, class_name: 'Granted::ReadGrant'
   
-  has_many :write_users, source: :grantee, source_type: 'User', through: :grants, conditions: {'grants.right' => :write}
-  has_many :read_users,  source: :grantee, source_type: 'User', through: :grants, conditions: {'grants.right' => :read}
+  has_many :write_users, source: :grantee, source_type: 'User', through: :write_grants
+  has_many :read_users,  source: :grantee, source_type: 'User', through: :read_grants
   has_many :all_users,   source: :grantee, source_type: 'User', through: :grants, uniq: true
 end
 
 class User < ActiveRecord::Base
-  has_many :grants, as: :grantee, class_name: 'Granted::Grant', dependent: :destroy
+  has_many :grants,       as: :grantee, class_name: 'Granted::Grant', dependent: :destroy
+  has_many :write_grants, as: :grantee, class_name: 'Granted::WriteGrant'
+  has_many :read_grants,  as: :grantee, class_name: 'Granted::ReadGrant'
   
-  has_many :writeable_documents, source: :subject, source_type: 'Document', through: :grants, conditions: {'grants.right' => :write}
-  has_many :readable_documents,  source: :subject, source_type: 'Document', through: :grants, conditions: {'grants.right' => :read}
+  has_many :writeable_documents, source: :subject, source_type: 'Document', through: :write_grants
+  has_many :readable_documents,  source: :subject, source_type: 'Document', through: :read_grants
   has_many :all_documents,       source: :subject, source_type: 'Document', through: :grants, uniq: true
 end
 ```
 
-It creates the appropriate `has_many` relations to both `User` and
+First it creates STI classes that inherit from `Granted::Grant`.
+It then creates the appropriate `has_many` relations to both `User` and
 `Document`, so that they can be connected with a `Grant` instance.
 So you have all the access control available via normal active record
-associations.
+associations (reading and writing).
 
 ## Granting/revoking rights
 
