@@ -182,6 +182,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-jdbc-adapter
+  activerecord-jdbcmysql-adapter
   activerecord-jdbcpostgresql-adapter
   activerecord-postgresql-adapter
   database_cleaner

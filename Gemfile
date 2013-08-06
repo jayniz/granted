@@ -12,11 +12,11 @@ group :development, :test do
   gem 'guard-bundler'
   gem 'simplecov'
   gem 'database_cleaner'
-  gem 'mysql2'
 end
 
 platform :ruby do
   group :development, :test do
+    gem 'mysql2'
     gem 'debugger'
     gem 'activerecord-postgresql-adapter'
   end
@@ -24,6 +24,8 @@ end
 
 platform :jruby do
   group :development, :test do
+    gem 'activerecord-jdbc-adapter'
     gem 'activerecord-jdbcpostgresql-adapter'
+    gem 'activerecord-jdbcmysql-adapter'
   end
 end
