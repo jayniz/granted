@@ -1,9 +1,10 @@
 This gem lets you define arbitrary permissions on a per object level (as opposed to roles).
 They are implemented purely as active record associations and hence easy to understand.
 Check out this readme on how to grant read/write permissions on individual documents to
-individual users.
+individual users. This is a [moviepilot.com](http://moviepilot.com) project licensed
+[MIT](LICENSE.txt).
 
-Licensed [MIT](LICENSE.txt), © 2013 [moviepilot.com](http://moviepilot.com)
+[![Build Status](https://travis-ci.org/jayniz/granted.png?branch=master)](https://travis-ci.org/jayniz/granted)
 
 # Quickstart
 
