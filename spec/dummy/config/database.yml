@@ -3,24 +3,25 @@
 #
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
-
-test:
+mysql: &mysql
   adapter: mysql2
-  username: root
-  database: granted_test
+  username: travis
+  database: granted_<%= Rails.env %>
+
+postgresql: &postgresql
+  adapter: postgresql
+  username: travis
+  database: granted_<%= Rails.env %>
+  min_messages: ERROR
+
+defaults: &defaults
+  pool: 16
+  timeout: 5000
   host: localhost
-  port: 3306
+  <<: *<%= ENV['DB'] || "mysql" %>
 
 development:
-  adapter: mysql2
-  username: root
-  database: granted_development
-  host: localhost
-  port: 3306
+  <<: *defaults
 
-
-production:
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 5
-  timeout: 5000
+test:
+  <<: *defaults

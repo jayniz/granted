@@ -4,4 +4,14 @@ rvm:
   - "1.9.3"
   - jruby-19mode
   - rbx-19mode
-script: bundle exec rspec spec
+env:
+  - DB=mysql
+  - DB=postgresql
+before_script:
+  - mysql -u travis -e 'create database granted_test;'
+  - psql -c 'create database chromotype_test' -U travis
+  - rake db:test:prepare
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - bundle exec rspec spec
