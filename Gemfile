@@ -11,8 +11,11 @@ group :development, :test do
   gem 'terminal-notifier-guard'
   gem 'guard-bundler'
   gem 'simplecov'
-  gem 'debugger'
   gem 'database_cleaner'
   gem 'mysql2'
   gem 'activerecord-postgresql-adapter'
+end
+
+group :development do
+  gem 'debugger'
 end
