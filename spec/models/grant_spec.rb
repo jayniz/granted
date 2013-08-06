@@ -2,10 +2,10 @@ require 'spec_helper.rb'
 
 describe Granted::Grant do
   before(:all) do
-    @alfred     = User.create name: 'Alfred'
-    @grienhild  = User.create name: 'Grienhild'
-    @alfreds    = Document.create name: 'Alfreds', content: 'Secret'
-    @grienhilds = Document.create name: 'Grienhilds', content: 'Secret'
+    @alfred  = User.create name: 'Alfred'
+    @bruce   = User.create name: 'Bruce'
+    @alfreds = Document.create name: 'Alfreds', content: 'Secret'
+    @bruces  = Document.create name: 'Bruces', content: 'Secret'
 
     Granted::WriteGrant.create! grantee: @alfred, subject: @alfreds
   end
@@ -19,14 +19,14 @@ describe Granted::Grant do
       @alfred.readable_documents.count.should == 0
     end
 
-    it "Grienhild has no documents at all" do
-      @grienhild.all_documents.count.should == 0
+    it "Bruce has no documents at all" do
+      @bruce.all_documents.count.should == 0
     end
 
-    it "grant read access on Alfred's document to Grienhild" do
+    it "grant read access on Alfred's document to Bruce" do
       expect{
-        @grienhild.grant(:read).on(@alfreds)
-      }.to change(@grienhild.readable_documents, :count).from(0).to(1)
+        @bruce.grant(:read).on(@alfreds)
+      }.to change(@bruce.readable_documents, :count).from(0).to(1)
     end
 
     it "revoke write access on Alfred's document from Alfred" do
@@ -47,10 +47,10 @@ describe Granted::Grant do
       @alfreds.write_users.count.should == 1
     end
 
-    it "grant read access on Alfred's document to Grienhild" do
+    it "grant read access on Alfred's document to Bruce" do
       Granted::Grant.destroy_all
       expect{
-        @alfreds.grant(:read).to(@grienhild)
+        @alfreds.grant(:read).to(@bruce)
       }.to change(@alfreds.read_users, :count).from(0).to(1)
     end
 
@@ -70,16 +70,16 @@ describe Granted::Grant do
   context "granting/revoking rights: rails association style" do
     it "adds a grant via subject's <<" do
       expect{
-        @grienhilds.read_users << @alfred
-        @grienhilds.save!
+        @bruces.read_users << @alfred
+        @bruces.save!
       }.to change(@alfred.readable_documents, :count).from(0).to(1)
     end
 
     it "adds a grant via grantee's <<" do
       expect{
-        @alfred.readable_documents << @grienhilds
+        @alfred.readable_documents << @bruces
         @alfred.save!
-      }.to change(@grienhilds.read_users, :count).by(1)
+      }.to change(@bruces.read_users, :count).by(1)
     end
   end
 
