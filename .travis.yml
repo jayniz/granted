@@ -9,7 +9,7 @@ env:
   - DB=postgresql
 before_script:
   - mysql -u travis -e 'create database granted_test;'
-  - psql -c 'create database granted_test' -U travis
+  - psql -c 'create database granted_test' -U postgres
   - rake db:test:prepare
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
