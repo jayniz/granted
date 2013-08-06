@@ -182,6 +182,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-jdbcpostgresql-adapter
   activerecord-postgresql-adapter
   database_cleaner
   debugger

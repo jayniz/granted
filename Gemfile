@@ -13,9 +13,17 @@ group :development, :test do
   gem 'simplecov'
   gem 'database_cleaner'
   gem 'mysql2'
-  gem 'activerecord-postgresql-adapter'
 end
 
-group :development do
-  gem 'debugger'
+platform :ruby do
+  group :development, :test do
+    gem 'debugger'
+    gem 'activerecord-postgresql-adapter'
+  end
+end
+
+platform :jruby do
+  group :development, :test do
+    gem 'activerecord-jdbcpostgresql-adapter'
+  end
 end
