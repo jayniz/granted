@@ -81,6 +81,9 @@ class Document < ActiveRecord::Base
   has_many :write_users, source: :grantee, source_type: 'User', through: :write_grants
   has_many :read_users,  source: :grantee, source_type: 'User', through: :read_grants
   has_many :all_users,   source: :grantee, source_type: 'User', through: :grants, uniq: true
+
+  attr_accessible :write_users_attributes, :read_users_attributes
+  accepts_nested_attributes_for :write_users, :read_users
 end
 
 class User < ActiveRecord::Base
@@ -91,6 +94,9 @@ class User < ActiveRecord::Base
   has_many :writeable_documents, source: :subject, source_type: 'Document', through: :write_grants
   has_many :readable_documents,  source: :subject, source_type: 'Document', through: :read_grants
   has_many :all_documents,       source: :subject, source_type: 'Document', through: :grants, uniq: true
+
+  attr_accessible :writeable_documents_attributes, :readable_documents_attributes
+  accepts_nested_attributes_for :writeable_documents, :readable_documents
 end
 ```
 
