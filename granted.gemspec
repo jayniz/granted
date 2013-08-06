@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jannis Hermanns"]
-  s.date = "2013-08-05"
+  s.date = "2013-08-06"
   s.description = "Takes care of defining what actions one model is allowed to do with another model."
   s.email = "jannis@gmail.com"
   s.extra_rdoc_files = [
@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
     ".document",
     ".ruby-gemset",
     ".ruby-version",
+    ".travis.yml",
     "Gemfile",
     "Gemfile.lock",
     "Guardfile",
@@ -30,7 +31,8 @@ Gem::Specification.new do |s|
     "console",
     "granted.gemspec",
     "lib/granted.rb",
-    "lib/granted/db/migrations/create_granted_table.rb",
+    "lib/granted/db/migrations/create_grants.rb",
+    "lib/granted/grant_class_factory.rb",
     "lib/granted/granter.rb",
     "lib/granted/models/grant.rb",
     "lib/granted/modules/for_granted.rb",
@@ -66,10 +68,9 @@ Gem::Specification.new do |s|
     "spec/dummy/config/initializers/wrap_parameters.rb",
     "spec/dummy/config/locales/en.yml",
     "spec/dummy/config/routes.rb",
-    "spec/dummy/db/development.sqlite3",
-    "spec/dummy/db/migrate/1375702268_create_granted_table.rb",
     "spec/dummy/db/migrate/20130805113508_create_user.rb",
     "spec/dummy/db/migrate/20130805113515_create_document.rb",
+    "spec/dummy/db/migrate/20132406101010_create_grants.rb",
     "spec/dummy/db/schema.rb",
     "spec/dummy/lib/assets/.gitkeep",
     "spec/dummy/log/.gitkeep",
@@ -78,6 +79,7 @@ Gem::Specification.new do |s|
     "spec/dummy/public/500.html",
     "spec/dummy/public/favicon.ico",
     "spec/dummy/script/rails",
+    "spec/grant_class_factory_spec.rb",
     "spec/models/grant_spec.rb",
     "spec/spec_helper.rb"
   ]
@@ -92,7 +94,6 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<rails>, ["~> 3.2.14"])
-      s.add_development_dependency(%q<sqlite3>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
       s.add_development_dependency(%q<guard-rspec>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 0"])
@@ -100,12 +101,15 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<terminal-notifier-guard>, [">= 0"])
       s.add_development_dependency(%q<guard-bundler>, [">= 0"])
       s.add_development_dependency(%q<simplecov>, [">= 0"])
-      s.add_development_dependency(%q<debugger>, [">= 0"])
       s.add_development_dependency(%q<database_cleaner>, [">= 0"])
       s.add_development_dependency(%q<mysql2>, [">= 0"])
+      s.add_development_dependency(%q<debugger>, [">= 0"])
+      s.add_development_dependency(%q<activerecord-postgresql-adapter>, [">= 0"])
+      s.add_development_dependency(%q<activerecord-jdbc-adapter>, [">= 0"])
+      s.add_development_dependency(%q<activerecord-jdbcpostgresql-adapter>, [">= 0"])
+      s.add_development_dependency(%q<activerecord-jdbcmysql-adapter>, [">= 0"])
     else
       s.add_dependency(%q<rails>, ["~> 3.2.14"])
-      s.add_dependency(%q<sqlite3>, [">= 0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
       s.add_dependency(%q<guard-rspec>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 0"])
@@ -113,13 +117,16 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<terminal-notifier-guard>, [">= 0"])
       s.add_dependency(%q<guard-bundler>, [">= 0"])
       s.add_dependency(%q<simplecov>, [">= 0"])
-      s.add_dependency(%q<debugger>, [">= 0"])
       s.add_dependency(%q<database_cleaner>, [">= 0"])
       s.add_dependency(%q<mysql2>, [">= 0"])
+      s.add_dependency(%q<debugger>, [">= 0"])
+      s.add_dependency(%q<activerecord-postgresql-adapter>, [">= 0"])
+      s.add_dependency(%q<activerecord-jdbc-adapter>, [">= 0"])
+      s.add_dependency(%q<activerecord-jdbcpostgresql-adapter>, [">= 0"])
+      s.add_dependency(%q<activerecord-jdbcmysql-adapter>, [">= 0"])
     end
   else
     s.add_dependency(%q<rails>, ["~> 3.2.14"])
-    s.add_dependency(%q<sqlite3>, [">= 0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
     s.add_dependency(%q<guard-rspec>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 0"])
@@ -127,9 +134,13 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<terminal-notifier-guard>, [">= 0"])
     s.add_dependency(%q<guard-bundler>, [">= 0"])
     s.add_dependency(%q<simplecov>, [">= 0"])
-    s.add_dependency(%q<debugger>, [">= 0"])
     s.add_dependency(%q<database_cleaner>, [">= 0"])
     s.add_dependency(%q<mysql2>, [">= 0"])
+    s.add_dependency(%q<debugger>, [">= 0"])
+    s.add_dependency(%q<activerecord-postgresql-adapter>, [">= 0"])
+    s.add_dependency(%q<activerecord-jdbc-adapter>, [">= 0"])
+    s.add_dependency(%q<activerecord-jdbcpostgresql-adapter>, [">= 0"])
+    s.add_dependency(%q<activerecord-jdbcmysql-adapter>, [">= 0"])
   end
 end
 
