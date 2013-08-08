@@ -39,6 +39,10 @@ user.readable_documents.count
 # Let's count all documents a user has any access to
 user.all_documents.count
 
+# List the rights a user has to a certain document
+user.grants_for(document)
+=> [:read, :write]
+
 # Define the things we took for granted (scuse me) above
 class Document
   include Granted::ForGranted
