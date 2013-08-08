@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "granted"
-  s.version = "0.1.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jannis Hermanns"]
-  s.date = "2013-08-06"
+  s.date = "2013-08-08"
   s.description = "Takes care of defining what actions one model is allowed to do with another model."
   s.email = "jannis@gmail.com"
   s.extra_rdoc_files = [
