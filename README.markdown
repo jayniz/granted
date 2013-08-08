@@ -198,5 +198,6 @@ my_document.grant(:read, :write).to(my_user)
 
 
 That is all.
+
 ![](https://dl.dropboxusercontent.com/u/1953503/gifs/Zfb9Y.gif)
 
