@@ -11,6 +11,7 @@ group :development, :test do
   gem 'guard-bundler'
   gem 'simplecov'
   gem 'database_cleaner'
+  gem 'coveralls', require: false
 end
 
 platform :ruby do
