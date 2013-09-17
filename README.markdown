@@ -1,4 +1,4 @@
-# Dead easy rails permissions [![Gem Version](https://badge.fury.io/rb/granted.png)](http://badge.fury.io/rb/granted) [![Build Status](https://travis-ci.org/jayniz/granted.png?branch=master)](https://travis-ci.org/jayniz/granted)
+# Dead easy rails permissions [![Gem Version](https://badge.fury.io/rb/granted.png)](http://badge.fury.io/rb/granted) [![Build Status](https://travis-ci.org/jayniz/granted.png?branch=master)](https://travis-ci.org/jayniz/granted) [![Coverage Status](https://coveralls.io/repos/jayniz/granted/badge.png)](https://coveralls.io/r/jayniz/granted)
 
 Installation is as easy as 1,2,3:
 <table>
@@ -170,4 +170,34 @@ end
 
 my_document.grant(:read, :write).to(my_user)
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+That is all.
+
+![](https://dl.dropboxusercontent.com/u/1953503/gifs/Zfb9Y.gif)
 
